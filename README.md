@@ -39,8 +39,6 @@ It provides structured workout plans, personalized meal plans, and an integrated
 
 3. Set up environment variables:  
   Create a .env file in the project root for main configuration (Firebase, API keys, etc).
-  Create a .env file inside the payment_gateaway/ folder for Midtrans configuration (client key & server key).
-  Example root:
   ```bash
   # .env (root)
   VITE_API_KEY=your_firebase_api_key
@@ -58,9 +56,9 @@ It provides structured workout plans, personalized meal plans, and an integrated
   VITE_API_BASE_URL=https://your-vercel-app.vercel.
   ```
 
-
-  # payment_gateaway/.env
+  Create a .env file inside the payment_gateaway/ folder for Midtrans configuration (client key & server key).
   ```bash
+  # payment_gateaway/.env
   # Midtrans server-side credentials
   MIDTRANS_SERVER_KEY=your_midtrans_server_key
   MIDTRANS_CLIENT_KEY=your_midtrans_client_key
@@ -72,19 +70,21 @@ It provides structured workout plans, personalized meal plans, and an integrated
   BASE_URL=https://your-vercel-app.vercel.app
   ```
 
-
 4. Run the development server:
   ```bash
   npm run dev
+  ```
   The frontend app will be available at http://localhost:5173
 
 5. Build for production:
   ```bash
   npm run dev
+  ```
 
 6. Build for production:
   ```bash
   npm run build
+  ```
   This will make a folder "dist"    
 
 7. Deployment
@@ -93,6 +93,7 @@ It provides structured workout plans, personalized meal plans, and an integrated
   ```bash
   npm run build
   firebase deploy
+  ```
 
   # Payment Gateway (Vercel)
   Connect the project to Vercel.
