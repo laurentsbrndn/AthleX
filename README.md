@@ -88,17 +88,19 @@ It provides structured workout plans, personalized meal plans, and an integrated
   This will make a folder "dist"    
 
 7. Deployment
-  # Frontend (Firebase Hosting)
+  ### Frontend (Firebase Hosting)
   Deploy the frontend using Firebase CLI:
   ```bash
   npm run build
   firebase deploy
   ```
 
-  # Payment Gateway (Vercel)
+  ### Payment Gateway (Vercel)
   Connect the project to Vercel.
   Configure environment variables in Vercel dashboard.
   Deploy automatically via Vercel.
+
+---
 
 ## 🤖 AI Support Explanations
 
