@@ -29,10 +29,12 @@ It provides structured workout plans, personalized meal plans, and an integrated
   ```bash
   git clone https://github.com/your-username/Athlex.git
   cd athlex
+  ```
 
 2. Install dependencies:  
   ```bash
   npm install
+  ```
   Or use yarn install / pnpm install depending on your package manager.
 
 3. Set up environment variables:  
@@ -53,10 +55,12 @@ It provides structured workout plans, personalized meal plans, and an integrated
   VITE_MIDTRANS_CLIENT_KEY=your_midtrans_client_key
 
   # API base URL (Vercel payment gateway URL)
-  VITE_API_BASE_URL=https://your-vercel-app.vercel.app
+  VITE_API_BASE_URL=https://your-vercel-app.vercel.
+  ```
 
 
   # payment_gateaway/.env
+  ```bash
   # Midtrans server-side credentials
   MIDTRANS_SERVER_KEY=your_midtrans_server_key
   MIDTRANS_CLIENT_KEY=your_midtrans_client_key
@@ -66,6 +70,8 @@ It provides structured workout plans, personalized meal plans, and an integrated
 
   # Base URL for API server
   BASE_URL=https://your-vercel-app.vercel.app
+  ```
+
 
 4. Run the development server:
   ```bash
