@@ -1,69 +1,109 @@
-# React + TypeScript + Vite
+# AthleX
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📌 Description
+AthleX is a modern web application designed to empower fitness enthusiasts by bringing **training, nutrition, and shopping** into one platform.  
+It provides structured workout plans, personalized meal plans, and an integrated e-commerce feature for gym equipment — all with secure online payments and a seamless user experience.  
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠️ Technology Used
+- **React with TypeScript** → Scalable, type-safe, and interactive UI.  
+- **Firebase** → Real-time database, authentication, and hosting services.  
+- **Vercel** → Seamless deployment, CI/CD, and high-performance hosting.  
+- **Midtrans** → Secure and reliable online payment gateway (tailored for Indonesia).  
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## ✨ Features
+- **🏋️ Gym Equipment E-Commerce** → Browse, add to cart, and purchase gym equipment.  
+- **📋 Workout Plans** → Structured resistance & cardio programs (Easy → Expert).  
+- **🥗 Meal Plans** → Curated nutrition to complement workouts & health goals.  
+- **💳 Secure Online Payments** → Midtrans integration for trusted transactions.  
+- **📱 User-Friendly Experience** → Clean, responsive, and modern UI.  
+- **☁️ Scalable & Cloud-Based** → Firebase + Vercel for real-time sync and growth.  
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 🚀 Setup Instructions
+1. Clone repository:  
+  ```bash
+  git clone https://github.com/your-username/Athlex.git
+  cd athlex
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+2. Install dependencies:  
+  ```bash
+  npm install
+  Or use yarn install / pnpm install depending on your package manager.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+3. Set up environment variables:  
+  Create a .env file in the project root for main configuration (Firebase, API keys, etc).
+  Create a .env file inside the payment_gateaway/ folder for Midtrans configuration (client key & server key).
+  Example root:
+  ```bash
+  # .env (root)
+  VITE_API_KEY=your_firebase_api_key
+  VITE_AUTH_DOMAIN=your_project.firebaseapp.com
+  VITE_PROJECT_ID=your_project_id
+  VITE_STORAGE_BUCKET=your_project.appspot.com
+  VITE_MESSAGING_SENDER_ID=your_sender_id
+  VITE_APP_ID=your_app_id
+  VITE_MEASUREMENT_ID=your_measurement_id
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+  # Midtrans client key (frontend)
+  VITE_MIDTRANS_CLIENT_KEY=your_midtrans_client_key
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+  # API base URL (Vercel payment gateway URL)
+  VITE_API_BASE_URL=https://your-vercel-app.vercel.app
+
+
+  # payment_gateaway/.env
+  # Midtrans server-side credentials
+  MIDTRANS_SERVER_KEY=your_midtrans_server_key
+  MIDTRANS_CLIENT_KEY=your_midtrans_client_key
+
+  # Firebase service account (stringified JSON or file path)
+  FIREBASE_SERVICE_ACCOUNT_KEY=your_firebase_service_account
+
+  # Base URL for API server
+  BASE_URL=https://your-vercel-app.vercel.app
+
+4. Run the development server:
+  ```bash
+  npm run dev
+  The frontend app will be available at http://localhost:5173
+
+5. Build for production:
+  ```bash
+  npm run dev
+
+6. Build for production:
+  ```bash
+  npm run build
+  This will make a folder "dist"    
+
+7. Deployment
+  # Frontend (Firebase Hosting)
+  Deploy the frontend using Firebase CLI:
+  ```bash
+  npm run build
+  firebase deploy
+
+  # Payment Gateway (Vercel)
+  Connect the project to Vercel.
+  Configure environment variables in Vercel dashboard.
+  Deploy automatically via Vercel.
+
+## 🤖 AI Support Explanations
+
+### IBM Granite
+- Assisted in designing and validating the backend workflow (Firebase + Midtrans integration).  
+- Provided optimization insights for TypeScript code to ensure clean and maintainable architecture.  
+- Helped generate structured workout and meal plan content with consistency and clarity.  
+
+### ChatGPT (GPT-5)
+- Supported rapid debugging and troubleshooting for React, TypeScript, and Firebase services.  
+- Suggested best practices and reusable code snippets to accelerate feature implementation.  
+- Helped refine documentation and create professional, user-friendly project descriptions.  
+
+
+
