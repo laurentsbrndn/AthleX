@@ -102,7 +102,7 @@ export const CheckoutComponents = ({ user }: CheckoutComponentsProps) => {
       const { token } = json;
 
       (window as any).snap.pay(token, {
-        onSuccess: async (result: any) => {
+        onSuccess: async () => {
           try {
             const snapDocs = await getDocs(collection(db, "users", user.uid, "carts"));
             const itemsToDelete = new Set(checkout.items.map(it => it.cartDocId));
