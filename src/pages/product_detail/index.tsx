@@ -4,7 +4,11 @@ import { LoginModal } from "../../components/modal/login";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../config/firebase";
 
-export const ProductDetailPage = () => {
+interface ProductDetailPageProps {
+  onLoginRequired: () => void;
+}
+
+export const ProductDetailPage = ({ onLoginRequired }: ProductDetailPageProps) => {
   const [activeModal, setActiveModal] = useState<"login" | null>(null);
   const [user, setUser] = useState<any>(null);
 
@@ -19,7 +23,10 @@ export const ProductDetailPage = () => {
     <>
       <ProductDetail
         user={user}
-        onLoginRequired={() => setActiveModal("login")}
+        onLoginRequired={() => {
+          setActiveModal("login");
+          onLoginRequired();
+        }}
       />
 
       <LoginModal
@@ -30,3 +37,4 @@ export const ProductDetailPage = () => {
     </>
   );
 };
+

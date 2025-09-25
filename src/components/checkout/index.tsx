@@ -5,6 +5,7 @@ import { AddressManagement } from "../modal/address_management";
 import { getDraftCheckout, clearDraftCheckout } from "../../services/checkout_draft";
 import { useNavigate } from "react-router-dom";
 import { getFirestore, deleteDoc, collection, getDocs, Timestamp, doc } from "firebase/firestore";
+import toast from "react-hot-toast";
 
 interface CheckoutComponentsProps {
   user: any;
@@ -81,15 +82,12 @@ export const CheckoutComponents = ({ user }: CheckoutComponentsProps) => {
           postal_code: "",
         },
         items: cart.map(item => ({
-          // id: item.id,
           id: item.productId,
           price: item.price,
           quantity: item.quantity,
           name: item.name,
         })),
       };
-
-      console.log("💡 DEBUG - Payload sent to createTransaction:", payload);
 
       const res = await fetch(
         `${import.meta.env.VITE_API_BASE_URL}/api/createTransaction`,
@@ -100,39 +98,41 @@ export const CheckoutComponents = ({ user }: CheckoutComponentsProps) => {
         }
       );
       const json = await res.json();
-      console.log("💡 DEBUG - Response from createTransaction:", json);
 
       const { token } = json;
 
       (window as any).snap.pay(token, {
         onSuccess: async (result: any) => {
-          console.log("💡 SUCCESS", result);
           try {
             const snapDocs = await getDocs(collection(db, "users", user.uid, "carts"));
             const itemsToDelete = new Set(checkout.items.map(it => it.cartDocId));
             await Promise.all(
               snapDocs.docs.map(async d => {
                 if (itemsToDelete.has(d.id)) {
-                  console.log("Deleting:", d.id);
                   await deleteDoc(d.ref);
                 }
               })
             );
-            console.log("Selected items deleted from cart.");
             await clearDraftCheckout(user.uid);
             navigate("/transaction-success");
-          } catch (err) {
-            console.error("Error removing selected items from cart:", err);
+          } 
+          catch (err) {
+            toast.error("Failed to process transaction.");
           }
+        }, 
+        onPending: () => {
+          toast("Your payment is pending. Please complete it soon.", { icon: "⏳" });
         },
-        onPending: (result: any) => console.log("💡 PENDING", result),
-        onError: (result: any) => console.log("💡 ERROR", result),
-        onClose: () => console.log("💡 CLOSED"),
+        onError: () => {
+          toast.error("Payment failed. Please try again.", { icon: "⚠️" });
+        },
+        onClose: () => {
+          toast("You closed the payment window. Please try again to complete your transaction.", { icon: "👋" });
+        },
       });
-
-    } catch (err) {
-      console.error("Checkout error:", err);
-      alert("Failed to process checkout");
+    } 
+    catch (err) {
+      toast.error("Failed to process checkout.");
     }
   };
 
@@ -144,14 +144,13 @@ export const CheckoutComponents = ({ user }: CheckoutComponentsProps) => {
 
   const clientKey = import.meta.env.VITE_MIDTRANS_CLIENT_KEY;
   if (!clientKey) {
-    console.error("VITE_MIDTRANS_CLIENT_KEY is not defined");
     return;
   }
 
   script.setAttribute("data-client-key", clientKey);
   script.async = true;
 
-  script.onload = () => console.log("Midtrans Snap loaded");
+  script.onload
 
   document.body.appendChild(script);
 

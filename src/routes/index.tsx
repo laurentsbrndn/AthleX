@@ -9,20 +9,29 @@ import { MealPlansPage } from "../pages/meal_plans";
 import { MealPlansDetailPage } from "../pages/meal_plan_detail";
 import { CartsPage } from "../pages/carts";
 import { CheckoutPage } from "../pages/checkout";
-import { TransactionHistoryPage } from "../pages/transaction_history"
-import { TransactionSuccessPage } from "../pages/transaction_success"
+import { TransactionHistoryPage } from "../pages/transaction_history";
+import { TransactionSuccessPage } from "../pages/transaction_success";
 import { ProtectedRoute } from "../components/protected_route";
 
-export const AppRoutes = () => {
+interface AppRoutesProps {
+  onLoginRequired: () => void;
+}
+
+export const AppRoutes = ({ onLoginRequired }: AppRoutesProps) => {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/products" element={<ProductsPage />} />
-      <Route path="/products/:id" element={<ProductDetailPage />} />
+
+      <Route
+        path="/products/:id"
+        element={<ProductDetailPage onLoginRequired={onLoginRequired} />}
+      />
+
       <Route path="/workouts" element={<WorkoutsPage />} />
-      <Route path="/workouts/:id" element={<WorkoutPackagesDetailPage />}></Route>
+      <Route path="/workouts/:id" element={<WorkoutPackagesDetailPage />} />
       <Route path="/meal-plans" element={<MealPlansPage />} />
-      <Route path="/meal-plans/:id" element={<MealPlansDetailPage />}></Route>
+      <Route path="/meal-plans/:id" element={<MealPlansDetailPage />} />
 
       <Route
         path="/profile"

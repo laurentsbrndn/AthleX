@@ -53,5 +53,5 @@ export const ProductDetail = ({ user, onLoginRequired }: ProductDetailProps) => 
         </div>
       </div>
     </div>
-  );
+);
 };

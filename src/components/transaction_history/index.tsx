@@ -25,7 +25,6 @@ export const TransactionHistoryComponents = ({ user }: TransactionHistoryProps) 
       try {
         const data = await getUserCheckouts(user.uid);
 
-        // Pastikan createdAt adalah Timestamp
         const fixedData = data.map((tx) => ({
           ...tx,
           createdAt:
@@ -34,10 +33,18 @@ export const TransactionHistoryComponents = ({ user }: TransactionHistoryProps) 
               : (tx.createdAt as unknown as Timestamp),
         }));
 
+        fixedData.sort((a, b) => {
+          const aDate = (a.createdAt as Timestamp)?.toDate()?.getTime?.() || 0;
+          const bDate = (b.createdAt as Timestamp)?.toDate()?.getTime?.() || 0;
+          return bDate - aDate;
+        });
+
         setTransactions(fixedData);
-      } catch (err) {
+      } 
+      catch (err) {
         console.error("Failed to fetch transactions:", err);
-      } finally {
+      } 
+      finally {
         setLoading(false);
       }
     };
@@ -80,12 +87,6 @@ export const TransactionHistoryComponents = ({ user }: TransactionHistoryProps) 
             key={tx.orderId || tx.checkoutId}
             className="rounded-2xl border border-gray-200 p-5 shadow-sm hover:shadow-md transition-shadow bg-white space-y-4"
           >
-            <div className="flex justify-between items-center">
-              <p className="font-semibold text-gray-800">
-                Transaction #{tx.orderId || tx.checkoutId?.slice(0, 8)}
-              </p>
-            </div>
-
             {createdAt && (
               <p className="text-sm text-gray-500">
                 {createdAt.toDate().toLocaleString("id-ID")}
